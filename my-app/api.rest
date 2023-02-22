@@ -1,0 +1,16 @@
+###
+GET https://mesh-api.onrender.com/landing
+
+
+###
+POST https://mesh-api.onrender.com/landing
+Content-Type: "application/json"
+
+{
+"image": "https://images.meesho.com/images/products/136766070/f0ntk_400.webp",
+"title": "Banaras",
+"price": "₹165",
+"delivery": "Free Delivery",
+"rating": 2.7,
+"review": "1993 Reviews",
+}
