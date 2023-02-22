@@ -18,6 +18,8 @@ import {
     Input,
     Heading,
     Divider,
+    VStack,
+    Center,
 } from '@chakra-ui/react';
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/700.css'
@@ -28,7 +30,8 @@ import {
     ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { BiSearch } from "react-icons/bi";
-import { CiMobile3 } from "react-icons/ci";
+import { CiMobile3, CiUser } from "react-icons/ci";
+import { BsFillCartFill} from "react-icons/bs";
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
@@ -47,18 +50,33 @@ export default function Navbar() {
                     >
                         Meeshon
                     </Text>
-                    <HStack border = "1px solid grey" m = "0px" p = "0px">
-                    <BiSearch size = "26px"/>
-                    <Input border="none"/>
+                    <HStack border="1px solid grey" m="0px" p="0px">
+                        <BiSearch size="26px" />
+                        <Input border="none" />
                     </HStack>
-                    <HStack borderRight= "1px solid grey" m = "0px" p = "0px">
-                        <CiMobile3/>
-                        <Heading size = "sm" pr = "20px">Download The App</Heading>
+                    <HStack borderRight="1px solid grey" m="0px" p="0px">
+                        <CiMobile3 />
+                        <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Download The App</Heading>
                     </HStack>
+                    <HStack borderRight="1px solid grey" m="0px" p="0px">
+                        <Heading size="sm" pl = "20px" pr="20px" color="rgb(80, 79, 81)">Become A Suplier</Heading>
+                    </HStack>
+                    <VStack pl = "20px">
+                        <CiUser />
+                        <Center>
+                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Profile</Heading>
+                        </Center>
+                    </VStack>
+                    <VStack pl = "20px">
+                        <BsFillCartFill />
+                        <Center>
+                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Cart</Heading>
+                        </Center>
+                    </VStack>
 
                 </HStack>
             </Box>
-            <Divider color = "rgb(223, 223, 223)"/>
+            <Divider color="rgb(223, 223, 223)" />
             <Box>
                 <Flex
                     bg={useColorModeValue('white', 'gray.800')}
