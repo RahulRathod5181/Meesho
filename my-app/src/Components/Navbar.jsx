@@ -39,7 +39,7 @@ export default function Navbar() {
     return (
         <>
 
-            <Box>
+            <Box zIndex="-100" position="sticky">
                 <HStack>
                     <Text
                         textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
@@ -52,7 +52,7 @@ export default function Navbar() {
                     </Text>
                     <HStack border="1px solid grey" m="0px" p="0px">
                         <BiSearch size="26px" />
-                        <Input border="none" />
+                        <Input />
                     </HStack>
                     <HStack borderRight="1px solid grey" m="0px" p="0px">
                         <CiMobile3 />
