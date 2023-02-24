@@ -31,50 +31,72 @@ import {
 } from '@chakra-ui/icons';
 import { BiSearch } from "react-icons/bi";
 import { CiMobile3, CiUser } from "react-icons/ci";
-import { BsFillCartFill} from "react-icons/bs";
+import { BsFillCartFill } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
+import { useState } from "react"
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
+    const [cross, setCross] = useState(false)
+
+    const handleKey = (e) => {
+        if (e.target.value) {
+            setCross(true)
+        } else {
+            setCross(false)
+        }
+    }
 
     return (
         <>
 
-            <Box zIndex="-100" position="sticky">
-                <HStack>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={"Helvetica Neue", "sans-serif", "Mier Book"}
-                        color={useColorModeValue('rgb(244, 51, 151)', 'white')}
-                        fontWeight="600"
-                        fontSize='4xl'
-                    >
-                        Meeshon
-                    </Text>
-                    <HStack border="1px solid grey" m="0px" p="0px">
-                        <BiSearch size="26px" />
-                        <Input />
-                    </HStack>
-                    <HStack borderRight="1px solid grey" m="0px" p="0px">
-                        <CiMobile3 />
-                        <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Download The App</Heading>
-                    </HStack>
-                    <HStack borderRight="1px solid grey" m="0px" p="0px">
-                        <Heading size="sm" pl = "20px" pr="20px" color="rgb(80, 79, 81)">Become A Suplier</Heading>
-                    </HStack>
-                    <VStack pl = "20px">
-                        <CiUser />
-                        <Center>
-                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Profile</Heading>
-                        </Center>
-                    </VStack>
-                    <VStack pl = "20px">
-                        <BsFillCartFill />
-                        <Center>
-                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Cart</Heading>
-                        </Center>
-                    </VStack>
+            <Box position="sticky">
+                <Flex h="70px" p="0px 10px" align={"center"} justify="space-between">
+                    <Flex align={"center"}>
+                        <Text
+                            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                            // fontFamily={"Helvetica Neue", "sans-serif", "Mier Book"}
+                            color={useColorModeValue('rgb(244, 51, 151)', 'white')}
+                            fontWeight="700"
+                            fontSize='4xl'
+                            ml="30px"
+                        >
+                            Meeshon
+                        </Text>
+                        <Flex border="1px solid rgb(153, 153, 153)" w={"388px"} borderRadius="4px" h="45px" align={"center"} p="12px" ml="25px">
+                            <Box className='searchIcon'>
+                                <BiSearch size="23px" color="rgb(153, 153, 153)" />
+                            </Box>
+                            <Input placeholder='Try Saree, Kurti or Search by Product Code' color="rgb(88 77 99)" p="1" width={"100%"} border="none" focus="false" onKeyUp={handleKey} />
+                            <Box className="inputClose" display={cross === false ? "none" : "block"}>
+                                <RxCross2 p="1px" color="rgb(153, 153, 153)" fontWeight={"bold"} />
+                            </Box>
 
-                </HStack>
+                        </Flex>
+                    </Flex>
+
+                    <Flex>
+                        <Box borderRight="1px solid grey" m="0px" p="0px">
+                            <CiMobile3 />
+                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Download The App</Heading>
+                        </Box>
+                        <HStack borderRight="1px solid grey" m="0px" p="0px">
+                            <Heading size="sm" pl="20px" pr="20px" color="rgb(80, 79, 81)">Become A Suplier</Heading>
+                        </HStack>
+                        <VStack pl="20px">
+                            <CiUser />
+                            <Center>
+                                <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Profile</Heading>
+                            </Center>
+                        </VStack>
+                        <VStack pl="20px">
+                            <BsFillCartFill />
+                            <Center>
+                                <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Cart</Heading>
+                            </Center>
+                        </VStack>
+                    </Flex>
+                </Flex>
             </Box>
             <Divider color="rgb(223, 223, 223)" />
             <Box>
