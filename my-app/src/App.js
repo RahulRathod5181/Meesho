@@ -1,5 +1,5 @@
 
-// import './App.css';
+import './App.css';
 import Navbar from "./Components/Navbar"
 import CarouselComp from "./Components/CarouselComp"
 import Mid from "./Components/Mid"
