@@ -18,9 +18,8 @@ import {
     Input,
     Heading,
     Divider,
-    VStack,
-    Center,
 } from '@chakra-ui/react';
+
 import '@fontsource/raleway/400.css'
 import '@fontsource/open-sans/700.css'
 import {
@@ -34,11 +33,12 @@ import { CiMobile3, CiUser } from "react-icons/ci";
 import { BsFillCartFill } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     const [cross, setCross] = useState(false)
-
+   let nav=useNavigate()
     const handleKey = (e) => {
         if (e.target.value) {
             setCross(true)
@@ -46,123 +46,143 @@ export default function Navbar() {
             setCross(false)
         }
     }
-
+    const handleHome = ()=>{
+        console.log("Home")
+       return nav("/")
+    }
+    const handleCart = ()=>{
+        return nav("/cart")
+    }
     return (
         <>
+            <Box position="sticky"
+                top="0"
+                zIndex={3}>
+                <Box bg="#fff">
+                    <Flex h="70px" p="0px 10px" align={"center"} justify="space-between"  >
+                        <Flex align={"center"}>
+                            <Text
+                                textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                                // fontFamily={"Helvetica Neue", "sans-serif", "Mier Book"}
+                                color={useColorModeValue('rgb(244, 51, 151)', 'white')}
+                                fontWeight="700"
+                                fontSize='4xl'
+                                ml="30px"
+                                onClick = {handleHome}
+                                cursor = "pointer"
+                            >
+                                Meeshon
+                            </Text>
+                            <Flex border="1px solid rgb(153, 153, 153)" w={"388px"} borderRadius="4px" h="45px" align={"center"} p="12px" ml="25px">
+                                <Box className='searchIcon'>
+                                    <BiSearch size="23px" color="rgb(153, 153, 153)" />
+                                </Box>
+                                <Input variant='unstyled' placeholder='Try Saree, Kurti or Search by Product Code' color="rgb(88 77 99)" p="1" width={"100%"} border="unstyled" focus="unstyled" onKeyUp={handleKey} />
+                                <Box className="inputClose" display={cross === false ? "none" : "block"}>
+                                    <RxCross2 p="1px" color="rgb(153, 153, 153)" fontWeight={"bold"} />
+                                </Box>
 
-            <Box position="sticky">
-                <Flex h="70px" p="0px 10px" align={"center"} justify="space-between">
-                    <Flex align={"center"}>
-                        <Text
-                            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                            // fontFamily={"Helvetica Neue", "sans-serif", "Mier Book"}
-                            color={useColorModeValue('rgb(244, 51, 151)', 'white')}
-                            fontWeight="700"
-                            fontSize='4xl'
-                            ml="30px"
-                        >
-                            Meeshon
-                        </Text>
-                        <Flex border="1px solid rgb(153, 153, 153)" w={"388px"} borderRadius="4px" h="45px" align={"center"} p="12px" ml="25px">
-                            <Box className='searchIcon'>
-                                <BiSearch size="23px" color="rgb(153, 153, 153)" />
-                            </Box>
-                            <Input placeholder='Try Saree, Kurti or Search by Product Code' color="rgb(88 77 99)" p="1" width={"100%"} border="none" focus="false" onKeyUp={handleKey} />
-                            <Box className="inputClose" display={cross === false ? "none" : "block"}>
-                                <RxCross2 p="1px" color="rgb(153, 153, 153)" fontWeight={"bold"} />
-                            </Box>
+                            </Flex>
+                        </Flex>
 
+                        <Flex mr="80px" width="35%" justify={"space-around"} wrap="nowrap">
+                            <Flex borderRight="1px solid grey" m="0px" p="0px" align={"center"} cursor="pointer" _hover={{ color: "rgb(244, 51, 151)", postion: "sticky", borderBottom: "2px solid rgb(244, 51, 151)" }}>
+                                <CiMobile3 size="24px" />
+
+
+                                <Heading size="xs" pr="20px" color="rgb(51,51,51)" ml="8px" _hover={{ color: "rgb(244, 51, 151)" }} >Download App</Heading>
+
+                            </Flex>
+                            <HStack borderRight="1px solid grey" m="0px" pr="14px">
+                                <Heading size="xs" color="rgb(51,51,51)">Become A Suplier</Heading>
+                            </HStack>
+                            <Flex pl="20px" direction={"column"}>
+                                <Box pl="8px" >
+
+                                    <CiUser size="24px" />
+                                </Box>
+                                <Box mr="16px" mt="3px">
+                                    <Heading size="xs" color="rgb(51,51,51)">Profile</Heading>
+                                </Box>
+                            </Flex>
+                            <Flex pl="20px" direction={"column"}>
+                                <Box pl="3px" cursor="pointer">
+                                    <BsFillCartFill size="24px" cursor="pointer" onClick = {handleCart} />
+                                </Box>
+                                <Box mr="16px" mt="3px">
+                                    <Heading size="xs" color="rgb(51,51,51)">Cart</Heading>
+                                </Box>
+                            </Flex>
                         </Flex>
                     </Flex>
-
-                    <Flex>
-                        <Box borderRight="1px solid grey" m="0px" p="0px">
-                            <CiMobile3 />
-                            <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Download The App</Heading>
-                        </Box>
-                        <HStack borderRight="1px solid grey" m="0px" p="0px">
-                            <Heading size="sm" pl="20px" pr="20px" color="rgb(80, 79, 81)">Become A Suplier</Heading>
-                        </HStack>
-                        <VStack pl="20px">
-                            <CiUser />
-                            <Center>
-                                <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Profile</Heading>
-                            </Center>
-                        </VStack>
-                        <VStack pl="20px">
-                            <BsFillCartFill />
-                            <Center>
-                                <Heading size="sm" pr="20px" color="rgb(80, 79, 81)">Cart</Heading>
-                            </Center>
-                        </VStack>
-                    </Flex>
-                </Flex>
-            </Box>
-            <Divider color="rgb(223, 223, 223)" />
-            <Box>
-                <Flex
-                    bg={useColorModeValue('white', 'gray.800')}
-                    color={useColorModeValue('gray.600', 'white')}
-                    minH={'60px'}
-                    py={{ base: 2 }}
-                    px={{ base: 4 }}
-                    borderBottom={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.900')}
-                    align={'center'}>
+                </Box>
+                {/* <Divider color="rgb(223, 223, 223)" /> */}
+                <hr color="rgb(223, 223, 223)" ></hr>
+                <Box>
                     <Flex
-                        flex={{ base: 1, md: 'auto' }}
-                        ml={{ base: -2 }}
-                        display={{ base: 'flex', md: 'none' }}>
-                        <IconButton
-                            onClick={onToggle}
-                            icon={
-                                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                            }
-                            variant={'ghost'}
-                            aria-label={'Toggle Navigation'}
-                        />
-                    </Flex>
-                    <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-
-
-                        <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                            <DesktopNav />
+                        bg={useColorModeValue('white', 'gray.800')}
+                        color={useColorModeValue('gray.600', 'white')}
+                        minH={'60px'}
+                        py={{ base: 2 }}
+                        px={{ base: 4 }}
+                        borderBottom={1}
+                        borderStyle={'solid'}
+                        borderColor={useColorModeValue('gray.200', 'gray.900')}
+                        align={'center'}>
+                        <Flex
+                            flex={{ base: 1, md: 'auto' }}
+                            ml={{ base: -2 }}
+                            display={{ base: 'flex', md: 'none' }}>
+                            <IconButton
+                                onClick={onToggle}
+                                icon={
+                                    isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                                }
+                                variant={'ghost'}
+                                aria-label={'Toggle Navigation'}
+                            />
                         </Flex>
+                        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+
+
+                            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                                <DesktopNav />
+                            </Flex>
+                        </Flex>
+
+                        <Stack
+                            flex={{ base: 1, md: 0 }}
+                            justify={'flex-end'}
+                            direction={'row'}
+                            spacing={6}>
+                            <Button
+                                as={'a'}
+                                fontSize={'sm'}
+                                fontWeight={400}
+                                variant={'link'}
+                                href={'#'}>
+                                Sign In
+                            </Button>
+                            <Button
+                                as={'a'}
+                                display={{ base: 'none', md: 'inline-flex' }}
+                                fontSize={'sm'}
+                                fontWeight={600}
+                                color={'white'}
+                                bg={'pink.400'}
+                                href={'#'}
+                                _hover={{
+                                    bg: 'pink.300',
+                                }}>
+                                Sign Up
+                            </Button>
+                        </Stack>
                     </Flex>
 
-                    <Stack
-                        flex={{ base: 1, md: 0 }}
-                        justify={'flex-end'}
-                        direction={'row'}
-                        spacing={6}>
-                        <Button
-                            as={'a'}
-                            fontSize={'sm'}
-                            fontWeight={400}
-                            variant={'link'}
-                            href={'#'}>
-                            Sign In
-                        </Button>
-                        <Button
-                            as={'a'}
-                            display={{ base: 'none', md: 'inline-flex' }}
-                            fontSize={'sm'}
-                            fontWeight={600}
-                            color={'white'}
-                            bg={'pink.400'}
-                            href={'#'}
-                            _hover={{
-                                bg: 'pink.300',
-                            }}>
-                            Sign Up
-                        </Button>
-                    </Stack>
-                </Flex>
-
-                <Collapse in={isOpen} animateOpacity>
-                    <MobileNav />
-                </Collapse>
+                    <Collapse in={isOpen} animateOpacity>
+                        <MobileNav />
+                    </Collapse>
+                </Box>
             </Box>
         </>
     );
@@ -181,7 +201,8 @@ const DesktopNav = () => {
                         <PopoverTrigger>
                             <Link
                                 p={2}
-                                href={navItem.href ?? '#'}
+                                // href={navItem.path ?? '#'}
+                                href = {navItem.path}
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={linkColor}
@@ -215,13 +236,14 @@ const DesktopNav = () => {
     );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, path, href, subLabel }: NavItem) => {
     return (
         <Link
-            href={href}
+            // href={path}
             role={'group'}
             display={'block'}
             p={2}
+            to = {path}
             rounded={'md'}
             _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
             <Stack direction={'row'} align={'center'}>
@@ -230,7 +252,10 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                         transition={'all .3s ease'}
                         _groupHover={{ color: 'pink.400' }}
                         fontWeight={500}>
-                        {label}
+                        <Link to={path}>
+                            {label}
+                        </Link>
+
                     </Text>
                     <Text fontSize={'sm'}>{subLabel}</Text>
                 </Box>
@@ -322,60 +347,63 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Women Ethnic',
+        path: '/women',
         children: [
             {
                 label: 'All Women Athnic',
-                href: '#',
             },
             {
-                label: 'New & Noteworthy',
-                subLabel: 'Up-and-coming Designers',
-                href: '#',
+                label: 'View All',
             },
         ],
     },
     {
         label: 'Women Wesetern',
+        path:'/women',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Tops',
+                
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Dresses',
+                
             },
+            {
+                label: 'Jumpsuits',
+                
+            },
+            
         ],
     },
     {
         label: 'Men',
+        path:"/men",
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Top Wear',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Bottom Wear',
             },
+            {
+                label: 'Ethnic Wear',
+            },
+            
         ],
     },
     {
         label: 'Kids',
+        path:"/kids",
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Boys & Girls 2+ Years',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Toys & Accessories',
+            },
+            {
+                label: 'Infant 0-2 Years',
             },
         ],
     },
@@ -383,14 +411,13 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Home & Kitchen',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Home Furnishing',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Home Decor',
+            },
+            {
+                label: 'Kitchen & Dining',
             },
         ],
     },
@@ -398,14 +425,13 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Beauty & Health',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Make up',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Wellness',
+            },
+            {
+                label: 'Skincare',
             },
         ],
     },
@@ -413,14 +439,10 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Jewellery & Accessories',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Jewellery',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Women Accessory',
             },
         ],
     },
@@ -428,29 +450,24 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Bags & Footwear',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Women Bags',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Men Bags',
             },
+           
         ],
     },
     {
         label: 'Electronics',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
+                label: 'Mobile & Accessories',
+                
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
+                label: 'Appliances',
+                
             },
         ],
     },

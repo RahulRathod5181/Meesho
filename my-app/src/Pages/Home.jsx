@@ -8,18 +8,18 @@ import {
 } from '@chakra-ui/react'
 import {Link} from "react-router-dom"
 import { BsStar, BsStarFill } from "react-icons/bs";
-
+import CarouselComp from "../Components/CarouselComp"
+import Mid from "../Components/Mid"
 import { useState, useEffect } from "react"
 import axios from "axios"
-const getData = (name,params) => {
+const getData = (params) => {
 
-    return axios.get(`https://meshoproductapi.onrender.com/${name}`,{
+    return axios.get(`https://meshoproductapi.onrender.com/landing`,{
         params
     })
 }
 
-function LandingProducts(prop) {
-    const { name } = prop
+function Home(prop) {
     // console.log(name)
     const [data, setData] = useState([])
     const [isLoading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ function LandingProducts(prop) {
         setLoading(true)
         
         setData(...data,priceFilterData)
-        getData(name,param).then((res) => {
+        getData(param).then((res) => {
             // console.log(res.data)
             setData(res.data)
             setPermaData(res.data)
@@ -60,6 +60,8 @@ function LandingProducts(prop) {
 
     return (
         <>
+            <CarouselComp/>
+            <Mid/>
             {isLoading?(<Center><Spinner
                 thickness='4px'
                 speed='0.65s'
@@ -141,7 +143,7 @@ function LandingProducts(prop) {
                             gap={"5"}
                         >
                             {data?.map((el) => (
-                                <Link to = {`/${name}/${el.id}`}>
+                                <Link to = {`/${el.id}`}>
                                 <GridItem className="catsDetails" key={el.id} border="1px solid rgb(226 232 240)" borderRadius={"10px"}>
                                     <Box cursor={"pointer"} onClick={() => handleClick(el.id)}>
                                         <Img src={el.image} width="100%" h="220px" borderRadius="10px 10px 0px 0px" />
@@ -170,8 +172,7 @@ function LandingProducts(prop) {
                                             <HStack bg="rgb(35, 187, 117)" m="7px" mb="11px" p="0px 5px 0px 5px" borderRadius={"7px"}><Text color="white">{el.rating}</Text><BsStarFill fill="white" /></HStack>
                                             <Text fontSize={"13px"}
                                                 fontWeight="bold"
-                                                color="rgb(153 153 153)">{el.review}
-                                            </Text>
+                                                color="rgb(153 153 153)">{el.review}</Text>
                                         </Flex>
                                     </Box>
                                 </GridItem>
@@ -186,4 +187,4 @@ function LandingProducts(prop) {
     )
 }
 
-export default LandingProducts
+export default Home
