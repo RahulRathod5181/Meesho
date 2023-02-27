@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import { Box, Flex, Spinner, Button, Divider, Text, HStack } from "@chakra-ui/react"
 import { BsCart2, BsStarFill } from "react-icons/bs";
 import { MdDoubleArrow } from "react-icons/md";
-
+import { useToast } from '@chakra-ui/react'
 const getData = (user_id) => {
     // console.log(name)
     return axios.get(`https://meshoproductapi.onrender.com/women/${user_id}`)
@@ -16,7 +16,7 @@ let cartApi = {}
 function SingleWomen() {
     const { user_id } = useParams()
     const [isLoading, setLoading] = useState(false)
-
+    const toast = useToast()
 
     
     useEffect(() => {
@@ -24,6 +24,7 @@ function SingleWomen() {
         setLoading(true)
         getData(user_id).then((res) => {
             // setUser(res.data)
+            product = []
             product.push(res.data)
             cartApi = res.data
             // console.log(res.data)
@@ -34,11 +35,20 @@ function SingleWomen() {
         })
     }, [])
     const handleCart = ()=>{
-        cartApi.quantity = 1
+        
         console.log(cartApi)
+        cartApi.quantity = 1
         axios.post(`https://63cadb86d0ab64be2b5c2749.mockapi.io/boys`,{
             ...cartApi
         }).then((res)=>console.log(res.data))
+        toast({
+            title: 'Product is Added to cart',
+            // description: "We've created your account for you.",
+            status: 'success',
+            position:"top",
+            duration: 2000,
+            isClosable: true,
+          })
     }
 
 

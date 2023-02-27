@@ -8,6 +8,9 @@ import SingleWomen from "../Pages/SingleWomen.jsx"
 import SingleMen from "../Pages/SingleMen"
 import SingleKid from "../Pages/SingleKid"
 import Cart from "../Pages/Cart"
+import OrderPlace from "../Pages/OrderPlace";
+import PaymentPage from "../Pages/PaymentPage";
+import PaymentSuccess from "../Pages/PaymentSuccess";
 
 function AllRoutes(){
     return(
@@ -18,6 +21,10 @@ function AllRoutes(){
             <Route path = "/men" element = {<Men/>}></Route>
             <Route path = "/kids" element = {<Kids/>}></Route>
             <Route path = "/cart" element = {<Cart/>}></Route>
+            <Route path = "/orderplace" element = {<OrderPlace/>}></Route>
+            <Route path = "/payment" element = {<PaymentPage/>}></Route>
+            <Route path = "/paymentsuccess" element = {<PaymentSuccess/>}></Route>
+
 
             {/* <Route path = "/mens/:userId" element = {<SingleProduct/>}></Route>
             <Route path = "/women/:userId" element = {<SingleProduct/>}></Route>
