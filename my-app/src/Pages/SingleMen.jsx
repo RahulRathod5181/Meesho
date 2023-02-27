@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Heading, Img, VStack } from "@chakra-ui/react"
 import axios from "axios"
 import { useState, useEffect } from "react"
-
+import { useToast } from '@chakra-ui/react'
 import { Box, Flex, Spinner, Button, Divider, Text, HStack } from "@chakra-ui/react"
 import { BsCart2, BsStarFill } from "react-icons/bs";
 import { MdDoubleArrow } from "react-icons/md";
@@ -12,24 +12,47 @@ const getData = (user_id) => {
     return axios.get(`https://meshoproductapi.onrender.com/men/${user_id}`)
 }
 let product = []
+let cartApi = {}
 function SingleWomen() {
+    const toast = useToast()
     const { user_id } = useParams()
     const [isLoading, setLoading] = useState(false)
 
-    useEffect(() => {
 
+    
+    useEffect(() => {
+        
         setLoading(true)
         getData(user_id).then((res) => {
             // setUser(res.data)
             product = []
             product.push(res.data)
+            cartApi = res.data
             // console.log(res.data)
+            // console.log(product)
         }).catch((err) => console.log(err))
-            .finally(() => {
-                setLoading(false)
-            })
+        .finally(() => {
+            setLoading(false)
+        })
     }, [])
-    // console.log(product)
+    const handleCart = ()=>{
+        
+        console.log(cartApi)
+        cartApi.quantity = 1
+        axios.post(`https://63cadb86d0ab64be2b5c2749.mockapi.io/boys`,{
+            ...cartApi
+        }).then((res)=>console.log(res.data))
+        toast({
+            title: 'Product is Added to cart',
+            // description: "We've created your account for you.",
+            status: 'success',
+            position:"top",
+            duration: 2000,
+            isClosable: true,
+          })
+    }
+
+
     return (
 
         product?.map((el) => (
@@ -45,7 +68,7 @@ function SingleWomen() {
                                 <Box ml="10px" mb="4px" _hover={{ color: "rgb(244, 51, 151)" }}>
                                     <BsCart2 size="22px" />
                                 </Box>
-                                <Button _hover={{ bg: "white", color: "rgb(244, 51, 151)" }} p="0" ml="7px" mr="7px" varient="unstyled" bg="white"><p style={{ fontSize: "16px", fontWeight: "700" }}>Add To Cart</p></Button>
+                                <Button _hover={{ bg: "white", color: "rgb(244, 51, 151)" }} onClick={handleCart} p="0" ml="7px" mr="7px" varient="unstyled" bg="white"><p style={{ fontSize: "16px", fontWeight: "700" }}>Add To Cart</p></Button>
                             </Flex>
                             <Flex align={"center"} borderRadius={"4px"} width="45%" justify={"center"} bg="rgb(244, 51, 151)" mb="24px" >
                                 <Box ml="10px" color="white">
